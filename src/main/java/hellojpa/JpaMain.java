@@ -18,22 +18,25 @@ public class JpaMain {
 
         try {
             // 회원 등록
-//            Member member = new Member();
-//            member.setId(10L);
-//            member.setName("HelloA");
-//            em.persist(member);
+            Member member = new Member();
+            member.setId(13L);
+            member.setName("HelloA1");
+            em.persist(member);
+
+            em.flush();
 
             // 회원 수정
 //            Member findMember = em.find(Member.class, 10L);
 //            findMember.setName("HelloJPA");
 
             // 회원 조회 JPQL -> 엔티티 객체를 대상으로 하는 객체지향 쿼리
-            List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
+//            List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+//            for (Member member : result) {
+//                System.out.println("member.name = " + member.getName());
+//            }
 
+            System.out.println("========================");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -45,3 +48,14 @@ public class JpaMain {
         emf.close();
     }
 }
+
+// flush() 호출 출력 결과 -> 커밋 전에 insert 쿼리가 나감. commit 되고 실제 db에 반영됨.
+//Hibernate:
+//        /* insert hellojpa.Member
+//         */ insert
+//        into
+//        Member
+//        (name, id)
+//        values
+//        (?, ?)
+//========================
