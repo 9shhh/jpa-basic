@@ -6,12 +6,17 @@ import java.util.Date;
 @Entity
 public class Member {
     @Id
+    @GeneratedValue
     private Long id;
 
-    @Column(name = "name",
-            insertable = false, // insert 시 해당 컬럼 미 반영
-            updatable = false) // update 시 해당 컬럼 미 반영  => insert, update 둘다 false 이므로 읽기 전용 컬럼인 셈.
+    @Column(name = "USERNAME"
+//            insertable = false, // insert 시 해당 컬럼 미 반영
+//            updatable = false // update 시 해당 컬럼 미 반영  => insert, update 둘다 false 이므로 읽기 전용 컬럼인 셈.
+    )
     private String username;
+
+    @Column(name = "TEAM_ID")
+    private Long teamId;
 
     private Integer age;
 
@@ -43,6 +48,14 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public Integer getAge() {

@@ -16,15 +16,23 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 회원 등록
-            // Member member = new Member();
-            // member.setId(13L);
-            // member.setUsername("HelloA1");
-            // em.persist(member);
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // 회원 수정
-            Member findMember = em.find(Member.class, 10L);
-            findMember.setUsername("HelloJPA111");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
+            em.persist(member);
+
+            // 회원 조회
+            Member findMember = em.find(Member.class, member.getId());
+
+            // 팀 조회(회원과 연관관계가 없음)
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, findTeamId);
+
+            // ******* 위 코드는 객체지향답지 않은 방식. ******* //
 
             tx.commit();
         } catch (Exception e) {
