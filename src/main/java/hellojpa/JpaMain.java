@@ -22,21 +22,13 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
 
-            em.clear();
-
-            // 회원 조회
             Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
 
-            // 팀 조회(회원과 연관관계가 없음)
-            Long findTeamId = findMember.getTeamId();
-            Team findTeam = em.find(Team.class, findTeamId);
-
-            System.out.println(findTeam);
-
-            // ******* 위 코드는 객체지향답지 않은 방식. ******* //
+            System.out.println("findTeam.getName() = " + findTeam.getName());
 
             tx.commit();
         } catch (Exception e) {

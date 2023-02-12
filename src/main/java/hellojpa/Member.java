@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "USERNAME"
@@ -15,8 +15,10 @@ public class Member {
     )
     private String username;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+    //*** 연관 관계 매핑 ***//
+    @ManyToOne // N:1
+    @JoinColumn(name = "TEAM_ID") // 매핑 시 조인 컬럼
+    private Team team;
 
     private Integer age;
 
@@ -50,12 +52,12 @@ public class Member {
         this.username = username;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Integer getAge() {
